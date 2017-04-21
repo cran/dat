@@ -170,8 +170,7 @@ handleCols(x ~ data.frame,
            ..., by ~ NULL, sby ~ character) %m% {
              args <- constructArgs(i, j, ..., dat = x)
              dplyr::group_by_(x, .dots = sby) %>%
-               dplyr::summarise_(.dots = args) %>%
-               as.data.frame
+               dplyr::summarise_(.dots = args)
            }
 
 handleCols(x ~ data.frame,
@@ -180,6 +179,5 @@ handleCols(x ~ data.frame,
            ..., by ~ character, sby ~ NULL) %m% {
              args <- constructArgs(i, j, ..., dat = x)
              dplyr::group_by_(x, .dots = by) %>%
-               dplyr::mutate_(.dots = args) %>%
-               as.data.frame
+               dplyr::mutate_(.dots = args)
            }

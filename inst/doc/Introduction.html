@@ -4,14 +4,14 @@
 
 <head>
 
-<meta charset="utf-8">
+<meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-<meta name="date" content="2017-01-06" />
+<meta name="date" content="2017-04-19" />
 
 <title>Tools for Data Manipulation</title>
 
@@ -68,14 +68,21 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 
 <h1 class="title toc-ignore">Tools for Data Manipulation</h1>
-<h4 class="date"><em>2017-01-06</em></h4>
+<h4 class="date"><em>2017-04-19</em></h4>
 
 
 
 <p>An implementation of common higher order functions with syntactic sugar for anonymous function. Provides also a link to ‘dplyr’ for common transformations on data frames to work around non standard evaluation by default.</p>
 <div id="installation" class="section level2">
 <h2>Installation</h2>
+<div id="from-github" class="section level3">
+<h3>From GitHub</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools::<span class="kw">install_github</span>(<span class="st">&quot;wahani/dat&quot;</span>)</code></pre></div>
+</div>
+<div id="from-cran" class="section level3">
+<h3>From CRAN</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;dat&quot;</span>)</code></pre></div>
+</div>
 </div>
 <div id="why-should-you-care" class="section level2">
 <h2>Why should you care?</h2>
@@ -91,12 +98,6 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>The examples are from the introductory vignette of <code>dplyr</code>. You still work with data frames: so you can simply mix in dplyr features whenever you need them. The functions <code>filtar</code>, <code>mutar</code> and <code>sumar</code> are <code>R CMD check</code> friendly replacements for the corresponding versions in <code>dplyr</code>. For <code>select</code> you can use <code>extract</code>. The function names are chosen so that they are similar but do not conflict with <code>dplyr</code>s function names - so <code>dplyr</code> can be savely attached to the search path.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;nycflights13&quot;</span>)
 <span class="kw">library</span>(<span class="st">&quot;dat&quot;</span>)</code></pre></div>
-<pre><code>## Loading required package: aoos</code></pre>
-<pre><code>## 
-## Attaching package: 'dat'</code></pre>
-<pre><code>## The following object is masked from 'package:base':
-## 
-##     replace</code></pre>
 <div id="select-rows" class="section level3">
 <h3>Select rows</h3>
 <p><code>filtar</code> can be used as a replacement for <code>filter</code> and <code>slice</code>. When you reference a variable in the data itself, you can indicate this by using a one sided formula.</p>

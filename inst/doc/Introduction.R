@@ -4,6 +4,9 @@ cat(gsub("\\n   ", "", packageDescription("dat", fields = "Description")))
 ## ----eval=FALSE----------------------------------------------------------
 #  devtools::install_github("wahani/dat")
 
+## ----eval=FALSE----------------------------------------------------------
+#  install.packages("dat")
+
 ## ------------------------------------------------------------------------
 library("nycflights13")
 library("dat")
