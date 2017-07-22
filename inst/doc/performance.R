@@ -1,21 +1,21 @@
 ## ----eval = FALSE--------------------------------------------------------
-#  library("microbenchmark")
+#  library("rbenchmark")
 #  library("dat")
 #  
-#  microbenchmark(
+#  benchmark(
 #    flatmap(1:3, x ~ x^2),
 #    sapply(1:3, function(x) x^2),
 #    sapply(1:3, as.function(x ~ x^2)),
 #    flatmap(1:3, function(x) x^2)
 #  )
 #  
-#  microbenchmark(
+#  benchmark(
 #    flatmap(1:1e4, x ~ x^2),
 #    sapply(1:1e4, function(x) x^2)
 #  )
 
 ## ----eval = FALSE--------------------------------------------------------
-#  microbenchmark(
+#  benchmark(
 #    flatmap(1:3 ~ 1:3, f(x, y) ~ x + y),
 #    mapply(function(x, y) x + y, 1:3, 1:3),
 #    mapply(as.function(f(x, y) ~ x + y), 1:3, 1:3)

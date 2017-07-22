@@ -12,7 +12,7 @@ library("nycflights13")
 library("dat")
 
 ## ----results='hide'------------------------------------------------------
-filtar(flights, ~ month == 1 & day == 1)  
+filtar(flights, ~ month == 1 & day == 1)
 filtar(flights, 1:10)
 
 ## ------------------------------------------------------------------------
