@@ -11,7 +11,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-<meta name="date" content="2017-07-18" />
+<meta name="date" content="2018-01-19" />
 
 <title>Tools for Data Manipulation</title>
 
@@ -68,7 +68,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 
 <h1 class="title toc-ignore">Tools for Data Manipulation</h1>
-<h4 class="date"><em>2017-07-18</em></h4>
+<h4 class="date"><em>2018-01-19</em></h4>
 
 
 
@@ -77,7 +77,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2>Installation</h2>
 <div id="from-github" class="section level3">
 <h3>From GitHub</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools::<span class="kw">install_github</span>(<span class="st">&quot;wahani/dat&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;wahani/dat&quot;</span>)</code></pre></div>
 </div>
 <div id="from-cran" class="section level3">
 <h3>From CRAN</h3>
@@ -98,38 +98,43 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>The examples are from the introductory vignette of <code>dplyr</code>. You still work with data frames: so you can simply mix in dplyr features whenever you need them. The functions <code>filtar</code>, <code>mutar</code> and <code>sumar</code> are <code>R CMD check</code> friendly replacements for the corresponding versions in <code>dplyr</code>. For <code>select</code> you can use <code>extract</code>. The function names are chosen so that they are similar but do not conflict with <code>dplyr</code>s function names - so <code>dplyr</code> can be savely attached to the search path.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(<span class="st">&quot;nycflights13&quot;</span>)
 <span class="kw">library</span>(<span class="st">&quot;dat&quot;</span>)</code></pre></div>
+<pre><code>## Loading required package: aoos</code></pre>
+<pre><code>## 
+## Attaching package: 'dat'</code></pre>
+<pre><code>## The following object is masked from 'package:base':
+## 
+##     replace</code></pre>
 <div id="select-rows" class="section level3">
 <h3>Select rows</h3>
 <p><code>filtar</code> can be used as a replacement for <code>filter</code> and <code>slice</code>. When you reference a variable in the data itself, you can indicate this by using a one sided formula.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filtar</span>(flights, ~<span class="st"> </span>month ==<span class="st"> </span><span class="dv">1</span> &amp;<span class="st"> </span>day ==<span class="st"> </span><span class="dv">1</span>)
-<span class="kw">filtar</span>(flights, <span class="dv">1</span>:<span class="dv">10</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filtar</span>(flights, <span class="op">~</span><span class="st"> </span>month <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>day <span class="op">==</span><span class="st"> </span><span class="dv">1</span>)
+<span class="kw">filtar</span>(flights, <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)</code></pre></div>
 <p>And for sorting:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filtar</span>(flights, ~<span class="st"> </span><span class="kw">order</span>(year, month, day))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">filtar</span>(flights, <span class="op">~</span><span class="st"> </span><span class="kw">order</span>(year, month, day))</code></pre></div>
 <pre><code>## # A tibble: 336,776 x 19
-##     year month   day dep_time sched_dep_time dep_delay arr_time
-##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;
-##  1  2013     1     1      517            515         2      830
-##  2  2013     1     1      533            529         4      850
-##  3  2013     1     1      542            540         2      923
-##  4  2013     1     1      544            545        -1     1004
-##  5  2013     1     1      554            600        -6      812
-##  6  2013     1     1      554            558        -4      740
-##  7  2013     1     1      555            600        -5      913
-##  8  2013     1     1      557            600        -3      709
-##  9  2013     1     1      557            600        -3      838
-## 10  2013     1     1      558            600        -2      753
-## # ... with 336,766 more rows, and 12 more variables: sched_arr_time &lt;int&gt;,
-## #   arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;,
+##     year month   day dep_t… sched_… dep_d… arr_… sched… arr_d… carr… flig…
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt;  &lt;int&gt;   &lt;int&gt;  &lt;dbl&gt; &lt;int&gt;  &lt;int&gt;  &lt;dbl&gt; &lt;chr&gt; &lt;int&gt;
+##  1  2013     1     1    517     515   2.00   830    819  11.0  UA     1545
+##  2  2013     1     1    533     529   4.00   850    830  20.0  UA     1714
+##  3  2013     1     1    542     540   2.00   923    850  33.0  AA     1141
+##  4  2013     1     1    544     545  -1.00  1004   1022 -18.0  B6      725
+##  5  2013     1     1    554     600  -6.00   812    837 -25.0  DL      461
+##  6  2013     1     1    554     558  -4.00   740    728  12.0  UA     1696
+##  7  2013     1     1    555     600  -5.00   913    854  19.0  B6      507
+##  8  2013     1     1    557     600  -3.00   709    723 -14.0  EV     5708
+##  9  2013     1     1    557     600  -3.00   838    846 - 8.00 B6       79
+## 10  2013     1     1    558     600  -2.00   753    745   8.00 AA      301
+## # ... with 336,766 more rows, and 8 more variables: tailnum &lt;chr&gt;,
 ## #   origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;,
 ## #   minute &lt;dbl&gt;, time_hour &lt;dttm&gt;</code></pre>
 </div>
 <div id="select-cols" class="section level3">
 <h3>Select cols</h3>
 <p>You can use characters, logicals, regular expressions and functions to select columns. Regular expressions are indicated by a leading “^”. Character are simply passed to <code>dplyr::select_</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights %&gt;%
-<span class="st">  </span><span class="kw">extract</span>(<span class="kw">c</span>(<span class="st">&quot;year&quot;</span>, <span class="st">&quot;month&quot;</span>, <span class="st">&quot;day&quot;</span>)) %&gt;%
-<span class="st">  </span><span class="kw">extract</span>(<span class="st">&quot;year:day&quot;</span>) %&gt;%
-<span class="st">  </span><span class="kw">extract</span>(<span class="st">&quot;^day$&quot;</span>) %&gt;%
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">flights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">extract</span>(<span class="kw">c</span>(<span class="st">&quot;year&quot;</span>, <span class="st">&quot;month&quot;</span>, <span class="st">&quot;day&quot;</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">extract</span>(<span class="st">&quot;year:day&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">extract</span>(<span class="st">&quot;^day$&quot;</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">extract</span>(is.numeric)</code></pre></div>
 </div>
 <div id="operations-on-columns" class="section level3">
@@ -137,34 +142,34 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>The main difference between <code>mutate</code> and <code>mutar</code> is that you use a <code>~</code> instead of <code>=</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mutar</span>(
   flights,
-  gain ~<span class="st"> </span>arr_delay -<span class="st"> </span>dep_delay,
-  speed ~<span class="st"> </span>distance /<span class="st"> </span>air_time *<span class="st"> </span><span class="dv">60</span>
+  gain <span class="op">~</span><span class="st"> </span>arr_delay <span class="op">-</span><span class="st"> </span>dep_delay,
+  speed <span class="op">~</span><span class="st"> </span>distance <span class="op">/</span><span class="st"> </span>air_time <span class="op">*</span><span class="st"> </span><span class="dv">60</span>
 )</code></pre></div>
 <p>Grouping data is handled within <code>mutar</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mutar</span>(flights, n ~<span class="st"> </span><span class="kw">n</span>(), <span class="dt">by =</span> <span class="st">&quot;month&quot;</span>)</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sumar</span>(flights, delay ~<span class="st"> </span><span class="kw">mean</span>(dep_delay, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dt">by =</span> <span class="st">&quot;month&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mutar</span>(flights, n <span class="op">~</span><span class="st"> </span><span class="kw">n</span>(), <span class="dt">by =</span> <span class="st">&quot;month&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sumar</span>(flights, delay <span class="op">~</span><span class="st"> </span><span class="kw">mean</span>(dep_delay, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dt">by =</span> <span class="st">&quot;month&quot;</span>)</code></pre></div>
 <p>You can also provide additional arguments to a formula. This is especially helpful when you want to pass arguments from a function to such expressions. The additional augmentation can be anything which you can use to select columns (character, regular expression, function) or a named list where each element is a character.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sumar</span>(
   flights,
-  .n ~<span class="st"> </span><span class="kw">mean</span>(.n, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) |<span class="st"> &quot;^.*delay$&quot;</span>,
-  x ~<span class="st"> </span><span class="kw">mean</span>(x, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) |<span class="st"> </span><span class="kw">list</span>(<span class="dt">x =</span> <span class="st">&quot;arr_time&quot;</span>),
+  .n <span class="op">~</span><span class="st"> </span><span class="kw">mean</span>(.n, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">|</span><span class="st"> &quot;^.*delay$&quot;</span>,
+  x <span class="op">~</span><span class="st"> </span><span class="kw">mean</span>(x, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="op">|</span><span class="st"> </span><span class="kw">list</span>(<span class="dt">x =</span> <span class="st">&quot;arr_time&quot;</span>),
   <span class="dt">by =</span> <span class="st">&quot;month&quot;</span>
 )</code></pre></div>
 <pre><code>## # A tibble: 12 x 4
-##    month dep_delay  arr_delay arr_time
-##    &lt;int&gt;     &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;
-##  1     1 10.036665  6.1299720 1523.155
-##  2     2 10.816843  5.6130194 1522.207
-##  3     3 13.227076  5.8075765 1509.743
-##  4     4 13.938038 11.1760630 1500.704
-##  5     5 12.986859  3.5215088 1502.685
-##  6     6 20.846332 16.4813296 1467.994
-##  7     7 21.727787 16.7113067 1455.944
-##  8     8 12.611040  6.0406524 1495.368
-##  9     9  6.722476 -4.0183636 1503.549
-## 10    10  6.243988 -0.1670627 1519.899
-## 11    11  5.435362  0.4613474 1522.722
-## 12    12 16.576688 14.8703553 1505.252</code></pre>
+##    month dep_delay arr_delay arr_time
+##    &lt;int&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+##  1     1     10.0      6.13      1523
+##  2     2     10.8      5.61      1522
+##  3     3     13.2      5.81      1510
+##  4     4     13.9     11.2       1501
+##  5     5     13.0      3.52      1503
+##  6     6     20.8     16.5       1468
+##  7     7     21.7     16.7       1456
+##  8     8     12.6      6.04      1495
+##  9     9      6.72   - 4.02      1504
+## 10    10      6.24   - 0.167     1520
+## 11    11      5.44     0.461     1523
+## 12    12     16.6     14.9       1505</code></pre>
 </div>
 </div>
 <div id="a-link-to-s4" class="section level2">
@@ -174,22 +179,22 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <span class="kw">setClass</span>(<span class="st">&quot;DataTable&quot;</span>, <span class="st">&quot;data.table&quot;</span>)
 
-DataTable &lt;-<span class="st"> </span>function(...) {
-  <span class="kw">new</span>(<span class="st">&quot;DataTable&quot;</span>, data.table::<span class="kw">data.table</span>(...))
+DataTable &lt;-<span class="st"> </span><span class="cf">function</span>(...) {
+  <span class="kw">new</span>(<span class="st">&quot;DataTable&quot;</span>, data.table<span class="op">::</span><span class="kw">data.table</span>(...))
 }
 
 <span class="kw">setMethod</span>(<span class="st">&quot;[&quot;</span>, <span class="st">&quot;DataTable&quot;</span>, mutar)
 
-dtflights &lt;-<span class="st"> </span><span class="kw">do.call</span>(DataTable, nycflights13::flights)
+dtflights &lt;-<span class="st"> </span><span class="kw">do.call</span>(DataTable, nycflights13<span class="op">::</span>flights)
 
-dtflights[<span class="dv">1</span>:<span class="dv">10</span>, <span class="st">&quot;year:day&quot;</span>]
-dtflights[n ~<span class="st"> </span><span class="kw">n</span>(), by =<span class="st"> &quot;month&quot;</span>]
-dtflights[n ~<span class="st"> </span><span class="kw">n</span>(), sby =<span class="st"> &quot;month&quot;</span>]
+dtflights[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="st">&quot;year:day&quot;</span>]
+dtflights[n <span class="op">~</span><span class="st"> </span><span class="kw">n</span>(), by =<span class="st"> &quot;month&quot;</span>]
+dtflights[n <span class="op">~</span><span class="st"> </span><span class="kw">n</span>(), sby =<span class="st"> &quot;month&quot;</span>]
 
-dtflights %&gt;%
-<span class="st">  </span><span class="kw">filtar</span>(~month &gt;<span class="st"> </span><span class="dv">6</span>) %&gt;%
-<span class="st">  </span><span class="kw">mutar</span>(n ~<span class="st"> </span><span class="kw">n</span>(), <span class="dt">by =</span> <span class="st">&quot;month&quot;</span>) %&gt;%
-<span class="st">  </span><span class="kw">sumar</span>(n ~<span class="st"> </span><span class="kw">first</span>(n), <span class="dt">by =</span> <span class="st">&quot;month&quot;</span>)</code></pre></div>
+dtflights <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filtar</span>(<span class="op">~</span>month <span class="op">&gt;</span><span class="st"> </span><span class="dv">6</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutar</span>(n <span class="op">~</span><span class="st"> </span><span class="kw">n</span>(), <span class="dt">by =</span> <span class="st">&quot;month&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">sumar</span>(n <span class="op">~</span><span class="st"> </span><span class="kw">first</span>(n), <span class="dt">by =</span> <span class="st">&quot;month&quot;</span>)</code></pre></div>
 </div>
 <div id="working-with-vectors" class="section level2">
 <h2>Working with vectors</h2>
@@ -200,14 +205,14 @@ dtflights %&gt;%
 <li><code>replace</code> for replacing elements in a vector</li>
 </ul>
 <p>What we can do with map:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">map</span>(<span class="dv">1</span>:<span class="dv">3</span>, ~<span class="st"> </span>.^<span class="dv">2</span>)
-<span class="kw">flatmap</span>(<span class="dv">1</span>:<span class="dv">3</span>, ~<span class="st"> </span>.^<span class="dv">2</span>)
-<span class="kw">map</span>(<span class="dv">1</span>:<span class="dv">3</span> ~<span class="st"> </span><span class="dv">11</span>:<span class="dv">13</span>, c) <span class="co"># zip</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">map</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="op">~</span><span class="st"> </span>.<span class="op">^</span><span class="dv">2</span>)
+<span class="kw">flatmap</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="op">~</span><span class="st"> </span>.<span class="op">^</span><span class="dv">2</span>)
+<span class="kw">map</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span> <span class="op">~</span><span class="st"> </span><span class="dv">11</span><span class="op">:</span><span class="dv">13</span>, c) <span class="co"># zip</span>
 dat &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="dv">1</span>, <span class="dt">y =</span> <span class="st">&quot;&quot;</span>)
-<span class="kw">map</span>(dat, x ~<span class="st"> </span>x +<span class="st"> </span><span class="dv">1</span>, is.numeric)</code></pre></div>
+<span class="kw">map</span>(dat, x <span class="op">~</span><span class="st"> </span>x <span class="op">+</span><span class="st"> </span><span class="dv">1</span>, is.numeric)</code></pre></div>
 <p>What we can do with extract:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">extract</span>(<span class="dv">1</span>:<span class="dv">10</span>, ~<span class="st"> </span>. %%<span class="st"> </span><span class="dv">2</span> ==<span class="st"> </span><span class="dv">0</span>) %&gt;%<span class="st"> </span>sum
-<span class="kw">extract</span>(<span class="dv">1</span>:<span class="dv">15</span>, ~<span class="st"> </span><span class="dv">15</span> %%<span class="st"> </span>. ==<span class="st"> </span><span class="dv">0</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">extract</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="op">~</span><span class="st"> </span>. <span class="op">%%</span><span class="st"> </span><span class="dv">2</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) <span class="op">%&gt;%</span><span class="st"> </span>sum
+<span class="kw">extract</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">15</span>, <span class="op">~</span><span class="st"> </span><span class="dv">15</span> <span class="op">%%</span><span class="st"> </span>. <span class="op">==</span><span class="st"> </span><span class="dv">0</span>)
 l &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">aList =</span> <span class="kw">list</span>(<span class="dt">x =</span> <span class="dv">1</span>), <span class="dt">aAtomic =</span> <span class="st">&quot;hi&quot;</span>)
 <span class="kw">extract</span>(l, <span class="st">&quot;^aL&quot;</span>)
 <span class="kw">extract</span>(l, is.atomic)</code></pre></div>
