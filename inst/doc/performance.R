@@ -1,4 +1,4 @@
-## ----eval = FALSE--------------------------------------------------------
+## ----eval = FALSE-------------------------------------------------------------
 #  library("rbenchmark")
 #  library("dat")
 #  
@@ -14,16 +14,17 @@
 #    sapply(1:1e4, function(x) x^2)
 #  )
 
-## ----eval = FALSE--------------------------------------------------------
+## ----eval = FALSE-------------------------------------------------------------
 #  benchmark(
 #    flatmap(1:3 ~ 1:3, f(x, y) ~ x + y),
 #    mapply(function(x, y) x + y, 1:3, 1:3),
 #    mapply(as.function(f(x, y) ~ x + y), 1:3, 1:3)
 #  )
 
-## ----eval = FALSE--------------------------------------------------------
+## ----eval = FALSE-------------------------------------------------------------
 #  library("data.table")
 #  library("dplyr")
+#  options("dat.use.dplyr" = FALSE)
 #  N <- 2e7 # more is not possible with small laptop
 #  K <- 100
 #  set.seed(1)

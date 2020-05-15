@@ -1,52 +1,51 @@
-## ---- results='asis', echo=FALSE-----------------------------------------
+## ---- results='asis', echo=FALSE----------------------------------------------
 cat(gsub("\\n   ", "", packageDescription("dat", fields = "Description")))
 
-## ----eval=FALSE----------------------------------------------------------
-#  devtools::install_github("wahani/dat")
+## ----eval=FALSE---------------------------------------------------------------
+#  remotes::install_github("wahani/dat")
 
-## ----eval=FALSE----------------------------------------------------------
+## ----eval=FALSE---------------------------------------------------------------
 #  install.packages("dat")
 
-## ------------------------------------------------------------------------
+## -----------------------------------------------------------------------------
 library("nycflights13")
 library("dat")
 
-## ----results='hide'------------------------------------------------------
-filtar(flights, ~ month == 1 & day == 1)
-filtar(flights, 1:10)
+## ----results='hide'-----------------------------------------------------------
+mutar(flights, ~ month == 1 & day == 1)
+mutar(flights, ~ 1:10)
 
-## ------------------------------------------------------------------------
-filtar(flights, ~ order(year, month, day))
+## -----------------------------------------------------------------------------
+mutar(flights, ~ order(year, month, day))
 
-## ----results='hide'------------------------------------------------------
+## ----results='hide'-----------------------------------------------------------
 flights %>%
   extract(c("year", "month", "day")) %>%
-  extract("year:day") %>%
   extract("^day$") %>%
   extract(is.numeric)
 
-## ----results='hide'------------------------------------------------------
+## ----results='hide'-----------------------------------------------------------
 mutar(
   flights,
   gain ~ arr_delay - dep_delay,
   speed ~ distance / air_time * 60
 )
 
-## ----results = 'hide'----------------------------------------------------
-mutar(flights, n ~ n(), by = "month")
+## ----results = 'hide'---------------------------------------------------------
+mutar(flights, n ~ .N, by = "month")
 
-## ----results='hide'------------------------------------------------------
-sumar(flights, delay ~ mean(dep_delay, na.rm = TRUE), by = "month")
+## ----results='hide'-----------------------------------------------------------
+mutar(flights, delay ~ mean(dep_delay, na.rm = TRUE), by = "month")
 
-## ------------------------------------------------------------------------
-sumar(
+## -----------------------------------------------------------------------------
+mutar(
   flights,
   .n ~ mean(.n, na.rm = TRUE) | "^.*delay$",
-  x ~ mean(x, na.rm = TRUE) | list(x = "arr_time"),
+  .x ~ mean(.x, na.rm = TRUE) | list(.x = "arr_time"),
   by = "month"
 )
 
-## ----eval = FALSE--------------------------------------------------------
+## ----eval = FALSE-------------------------------------------------------------
 #  library("data.table")
 #  
 #  setClass("DataTable", "data.table")
@@ -59,30 +58,30 @@ sumar(
 #  
 #  dtflights <- do.call(DataTable, nycflights13::flights)
 #  
-#  dtflights[1:10, "year:day"]
-#  dtflights[n ~ n(), by = "month"]
-#  dtflights[n ~ n(), sby = "month"]
+#  dtflights[1:10, c("year", "month", "day")]
+#  dtflights[n ~ .N, by = "month"]
+#  dtflights[n ~ .N, sby = "month"]
 #  
 #  dtflights %>%
 #    filtar(~month > 6) %>%
-#    mutar(n ~ n(), by = "month") %>%
-#    sumar(n ~ first(n), by = "month")
+#    mutar(n ~ .N, by = "month") %>%
+#    sumar(n ~ data.table::first(n), by = "month")
 
-## ----eval=FALSE----------------------------------------------------------
+## ----eval=FALSE---------------------------------------------------------------
 #  map(1:3, ~ .^2)
 #  flatmap(1:3, ~ .^2)
 #  map(1:3 ~ 11:13, c) # zip
 #  dat <- data.frame(x = 1, y = "")
 #  map(dat, x ~ x + 1, is.numeric)
 
-## ----eval=FALSE----------------------------------------------------------
+## ----eval=FALSE---------------------------------------------------------------
 #  extract(1:10, ~ . %% 2 == 0) %>% sum
 #  extract(1:15, ~ 15 %% . == 0)
 #  l <- list(aList = list(x = 1), aAtomic = "hi")
 #  extract(l, "^aL")
 #  extract(l, is.atomic)
 
-## ----eval=FALSE----------------------------------------------------------
+## ----eval=FALSE---------------------------------------------------------------
 #  replace(c(1, 2, NA), is.na, 0)
 #  replace(c(1, 2, NA), rep(TRUE, 3), 0)
 #  replace(c(1, 2, NA), 3, 0)
