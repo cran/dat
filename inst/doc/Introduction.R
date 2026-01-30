@@ -1,11 +1,11 @@
-## ---- results='asis', echo=FALSE----------------------------------------------
+## ----results='asis', echo=FALSE-----------------------------------------------
 cat(gsub("\\n   ", "", packageDescription("dat", fields = "Description")))
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  remotes::install_github("wahani/dat")
+# remotes::install_github("wahani/dat")
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  install.packages("dat")
+# install.packages("dat")
 
 ## -----------------------------------------------------------------------------
 library("nycflights13")
@@ -46,46 +46,46 @@ mutar(
 )
 
 ## ----eval = FALSE-------------------------------------------------------------
-#  library("data.table")
-#  
-#  setClass("DataTable", "data.table")
-#  
-#  DataTable <- function(...) {
-#    new("DataTable", data.table::data.table(...))
-#  }
-#  
-#  setMethod("[", "DataTable", mutar)
-#  
-#  dtflights <- do.call(DataTable, nycflights13::flights)
-#  
-#  dtflights[1:10, c("year", "month", "day")]
-#  dtflights[n ~ .N, by = "month"]
-#  dtflights[n ~ .N, sby = "month"]
-#  
-#  dtflights %>%
-#    filtar(~month > 6) %>%
-#    mutar(n ~ .N, by = "month") %>%
-#    sumar(n ~ data.table::first(n), by = "month")
+# library("data.table")
+# 
+# setClass("DataTable", "data.table")
+# 
+# DataTable <- function(...) {
+#   new("DataTable", data.table::data.table(...))
+# }
+# 
+# setMethod("[", "DataTable", mutar)
+# 
+# dtflights <- do.call(DataTable, nycflights13::flights)
+# 
+# dtflights[1:10, c("year", "month", "day")]
+# dtflights[n ~ .N, by = "month"]
+# dtflights[n ~ .N, sby = "month"]
+# 
+# dtflights %>%
+#   filtar(~month > 6) %>%
+#   mutar(n ~ .N, by = "month") %>%
+#   sumar(n ~ data.table::first(n), by = "month")
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  map(1:3, ~ .^2)
-#  flatmap(1:3, ~ .^2)
-#  map(1:3 ~ 11:13, c) # zip
-#  dat <- data.frame(x = 1, y = "")
-#  map(dat, x ~ x + 1, is.numeric)
+# map(1:3, ~ .^2)
+# flatmap(1:3, ~ .^2)
+# map(1:3 ~ 11:13, c) # zip
+# dat <- data.frame(x = 1, y = "")
+# map(dat, x ~ x + 1, is.numeric)
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  extract(1:10, ~ . %% 2 == 0) %>% sum
-#  extract(1:15, ~ 15 %% . == 0)
-#  l <- list(aList = list(x = 1), aAtomic = "hi")
-#  extract(l, "^aL")
-#  extract(l, is.atomic)
+# extract(1:10, ~ . %% 2 == 0) %>% sum
+# extract(1:15, ~ 15 %% . == 0)
+# l <- list(aList = list(x = 1), aAtomic = "hi")
+# extract(l, "^aL")
+# extract(l, is.atomic)
 
 ## ----eval=FALSE---------------------------------------------------------------
-#  replace(c(1, 2, NA), is.na, 0)
-#  replace(c(1, 2, NA), rep(TRUE, 3), 0)
-#  replace(c(1, 2, NA), 3, 0)
-#  replace(list(x = 1, y = 2), "x", 0)
-#  replace(list(x = 1, y = 2), "^x$", 0)
-#  replace(list(x = 1, y = "a"), is.character, NULL)
+# replace(c(1, 2, NA), is.na, 0)
+# replace(c(1, 2, NA), rep(TRUE, 3), 0)
+# replace(c(1, 2, NA), 3, 0)
+# replace(list(x = 1, y = 2), "x", 0)
+# replace(list(x = 1, y = 2), "^x$", 0)
+# replace(list(x = 1, y = "a"), is.character, NULL)
 
